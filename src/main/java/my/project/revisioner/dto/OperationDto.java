@@ -3,6 +3,7 @@ package my.project.revisioner.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import my.project.revisioner.enums.OperationType;
 
 import java.time.LocalDate;
 
@@ -20,6 +21,6 @@ public class OperationDto {
     private Integer sum;
 
     @NotNull
-    private String type;
+    private OperationType type;
 
 }
