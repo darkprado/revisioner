@@ -6,7 +6,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import my.project.revisioner.config.AppProps;
 import my.project.revisioner.config.SecurityProps;
 import my.project.revisioner.payload.response.InvalidLoginResponse;
 import org.springframework.http.HttpStatus;
