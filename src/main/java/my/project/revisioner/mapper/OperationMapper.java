@@ -1,7 +1,7 @@
 package my.project.revisioner.mapper;
 
 import my.project.revisioner.dto.OperationDto;
-import my.project.revisioner.entity.OperationEntity;
+import my.project.revisioner.entity.Operation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -15,13 +15,13 @@ public interface OperationMapper {
 
     @Mapping(target = "date", source = "date", qualifiedByName = "mapDate")
     @Mapping(target = "positive", source = "sum", qualifiedByName = "mapPositive")
-    OperationEntity toEntity(OperationDto dto);
+    Operation toEntity(OperationDto dto);
 
-    List<OperationEntity> toEntityList(List<OperationDto> dto);
+    List<Operation> toEntityList(List<OperationDto> dto);
 
-    OperationDto toDto(OperationEntity entity);
+    OperationDto toDto(Operation entity);
 
-    List<OperationDto> toDtoList(List<OperationEntity> entity);
+    List<OperationDto> toDtoList(List<Operation> entity);
 
     @Named("mapDate")
     default LocalDate mapDate(LocalDate sourceDate) {

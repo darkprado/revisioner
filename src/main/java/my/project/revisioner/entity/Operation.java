@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "tbl_operations")
-public class OperationEntity {
+public class Operation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +34,8 @@ public class OperationEntity {
 
     @Column(name = "positive")
     private Boolean positive;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
 }
