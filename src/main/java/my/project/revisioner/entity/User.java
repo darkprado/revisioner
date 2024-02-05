@@ -36,7 +36,7 @@ public class User implements UserDetails {
     @ElementCollection(targetClass = ERole.class)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Operation> operations = new ArrayList<>();
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(updatable = false)
@@ -81,9 +81,14 @@ public class User implements UserDetails {
         return true;
     }
 
-//    @Override
-//    public String getPassword() {
-//        return password;
-//    }
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User with username = %s", username);
+    }
 
 }

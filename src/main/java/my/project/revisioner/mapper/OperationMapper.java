@@ -2,6 +2,7 @@ package my.project.revisioner.mapper;
 
 import my.project.revisioner.dto.OperationDto;
 import my.project.revisioner.entity.Operation;
+import my.project.revisioner.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -13,9 +14,10 @@ import java.util.Objects;
 @Mapper(componentModel = "spring")
 public interface OperationMapper {
 
-    @Mapping(target = "date", source = "date", qualifiedByName = "mapDate")
-    @Mapping(target = "positive", source = "sum", qualifiedByName = "mapPositive")
-    Operation toEntity(OperationDto dto);
+    @Mapping(target = "id", source = "dto.id")
+    @Mapping(target = "date", source = "dto.date", qualifiedByName = "mapDate")
+    @Mapping(target = "positive", source = "dto.sum", qualifiedByName = "mapPositive")
+    Operation toEntity(OperationDto dto, User user);
 
     List<Operation> toEntityList(List<OperationDto> dto);
 

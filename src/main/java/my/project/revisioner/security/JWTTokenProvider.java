@@ -3,6 +3,7 @@ package my.project.revisioner.security;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import my.project.revisioner.config.AppProps;
+import my.project.revisioner.config.SecurityProps;
 import my.project.revisioner.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +24,13 @@ public class JWTTokenProvider {
 
     public static final Logger LOG = LoggerFactory.getLogger(JWTTokenProvider.class);
 
-    private final AppProps appProps;
+    private final SecurityProps props;
 
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
 
         Date now = new Date(System.currentTimeMillis());
-        Date expiryDate = new Date(now.getTime() + appProps.getExpirationTime());
+        Date expiryDate = new Date(now.getTime() + props.getExpirationTime());
 
         String userId = Long.toString(user.getId());
 
@@ -44,14 +45,14 @@ public class JWTTokenProvider {
                 .addClaims(claimsMap)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, appProps.getSecret())
+                .signWith(SignatureAlgorithm.HS512, props.getSecret())
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
-                    .setSigningKey(appProps.getSecret())
+                    .setSigningKey(props.getSecret())
                     .parseClaimsJws(token);
             return true;
         } catch (SignatureException |
@@ -66,7 +67,7 @@ public class JWTTokenProvider {
 
     public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(appProps.getSecret())
+                .setSigningKey(props.getSecret())
                 .parseClaimsJws(token)
                 .getBody();
         return Long.parseLong((String) claims.get("id"));
